@@ -1,0 +1,103 @@
+#!/usr/bin/python
+# -*- mode: python; coding: utf-8 -*-
+"""
+Usage: httperr [OPTIONS] [CODE [CODE …]]
+
+positional arguments:
+  CODE             HTTP status code
+
+optional arguments:
+  -h, --help       show this help message and exit
+  -v, --version    show version information and exit
+  -c, --copyright  show copying policy and exit
+"""
+##############################################################################
+# This program is free software; you can redistribute it and/or modify it    #
+# under the terms of the GNU General Public License as published by the Free #
+# Software Foundation; either version 3 of the License, or (at your option)  #
+# any later version.                                                         #
+#                                                                            #
+# This program is distributed in the hope that it will be useful, but with-  #
+# out any warranty; without even the implied warranty of merchantability or  #
+# fitness for a particular purpose.  See the GNU General Public License for  #
+# more details.  <http://gplv3.fsf.org/>                                     #
+##############################################################################
+
+from __future__ import print_function, unicode_literals
+
+import sys
+import os
+import argparse
+
+if sys.version_info < (3, 0):
+    from httplib import responses
+else:
+    from http.client import responses
+
+__author__ = 'Klaus Alexander Seistrup <klaus@seistrup.dk>'
+__revision__ = '2015-08-08'
+__version__ = '0.1.2 (%s)' % __revision__
+__copyright__ = """\
+httperr %s
+Copyright © 2012−15 Klaus Alexander Seistrup <klaus@seistrup.dk>
+
+This is free software; see the source for copying conditions.  There is no
+warranty; not even for merchantability or fitness for a particular purpose.
+
+Fork me on Github: https://github.com/kseistrup/httperr
+""" % (__version__,)
+
+
+RESPONSES = dict([(str(code), desc) for (code, desc) in responses.items()])
+
+
+def reformat(old):
+    """Get rid of ugly Title Case"""
+    elms = old.split(None, 1)
+    if elms[0] not in ('HTTP', 'OK', 'Request-URI'):
+        return old.capitalize()
+    if len(elms) == 1:
+        return old
+    return ' '.join((elms[0], elms[1].lower()))
+
+
+def main(progname='httperr'):
+    """Main entry point"""
+    (stdin, stderr) = (sys.stdin, sys.stderr)
+
+    parser = argparse.ArgumentParser(
+        prog=progname,
+        formatter_class=argparse.RawTextHelpFormatter
+    )
+    parser.add_argument('-v', '--version', action='version',
+                        version='%(prog)s/' + __version__,
+                        help='show version information and exit')
+    parser.add_argument('-c', '--copyright', action='version',
+                        version=__copyright__,
+                        help='show copying policy and exit')
+    parser.add_argument('CODE', nargs='*', help='HTTP status code')
+
+    args = parser.parse_args()
+
+    codes = args.CODE or stdin.read().split()
+
+    return_code = 0
+
+    for code in codes:
+        if not code.isdigit() or len(code) != 3:
+            print('{0}\tInvalid status code'.format(code), file=stderr)
+            return_code = 1
+            continue
+        desc = RESPONSES.get(code, None)
+        if desc is None:
+            print('{0}\tUnrecognized status code'.format(code), file=stderr)
+            return_code = 1
+            continue
+        print('{0}\t{1}'.format(code, reformat(desc)))
+
+    return return_code
+
+if __name__ == '__main__':
+    sys.exit(main(os.path.basename(sys.argv[0])))
+
+# eof
