@@ -5,7 +5,7 @@ Convenient wrapper around Python's HTTP status codes
 ## Usage
 
 ```sh
-kas@home ~ $ httperr --help
+$ httperr --help
 Usage: httperr [OPTIONS] [CODE [CODE …]]
 
 positional arguments:
@@ -15,26 +15,26 @@ optional arguments:
   -h, --help       show this help message and exit
   -v, --version    show version information and exit
   -c, --copyright  show copying policy and exit
-kas@home ~ $
+$
 ```
 
 E.g.:
 
 ```sh
-kas@home ~ $ httperr 404
+$ httperr 404
 404	Not found
-kas@home ~ $ httperr 100 307
+$ httperr 100 307
 100	Continue
 307	Temporary redirect
-kas@home ~ $
+$
 ```
 
 or as a filter:
 
 ```sh
-kas@home ~ $ echo 205 | httperr
+$ echo 205 | httperr
 205	Reset content
-kas@home ~ $
+$
 ```
 
 ## Requirements
