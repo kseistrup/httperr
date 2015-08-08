@@ -15,7 +15,6 @@ optional arguments:
   -h, --help       show this help message and exit
   -v, --version    show version information and exit
   -c, --copyright  show copying policy and exit
-$
 ```
 
 E.g.:
@@ -26,7 +25,6 @@ $ httperr 404
 $ httperr 100 307
 100	Continue
 307	Temporary redirect
-$
 ```
 
 or as a filter:
@@ -34,7 +32,6 @@ or as a filter:
 ```sh
 $ echo 205 | httperr
 205	Reset content
-$
 ```
 
 ## Requirements
