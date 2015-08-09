@@ -1,6 +1,6 @@
 ## Future plans
 
-* Implement text search [(#1)](https://github.com/kseistrup/httperr/issues/1)
+* Implement text search ([#1](https://github.com/kseistrup/httperr/issues/1))
 
 ### Suggesttions
 
