@@ -35,6 +35,12 @@ if sys.version_info < (3, 0):
 else:
     from http.client import responses
 
+try:
+    from locale import (setlocale, LC_ALL, Error)
+    _ = setlocale(LC_ALL, '')
+except (ImportError, NameError, Error):
+    pass
+
 __author__ = 'Klaus Alexander Seistrup <klaus@seistrup.dk>'
 __revision__ = '2015-08-15'
 __version__ = '0.2.0 (%s)' % __revision__
