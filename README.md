@@ -1,15 +1,15 @@
 # httperr
 
-Convenient wrapper around Python's HTTP status codes
+CLI wrapper around Python's HTTP status codes
 
 ## Usage
 
 ```sh
 $ httperr --help
-Usage: httperr [OPTIONS] [CODE [CODE …]]
+Usage: httperr [OPTIONS] [STATUS [STATUS …]]
 
 positional arguments:
-  CODE             HTTP status code
+  STATUS           HTTP status code or pattern
 
 optional arguments:
   -h, --help       show this help message and exit
@@ -25,6 +25,12 @@ $ httperr 404
 $ httperr 100 307
 100	Continue
 307	Temporary redirect
+$ httperr proxy
+305	Use proxy
+407	Proxy authentication required
+$ httperr 1..
+100	Continue
+101	Switching protocols
 ```
 
 or as a filter:
@@ -50,4 +56,4 @@ to change the shebang line to e.g.
 #!/usr/bin/env python
 ```
 
-:smile:
+Don't worry, be happy :smile:
