@@ -1,10 +1,10 @@
 #!/usr/bin/python
 # -*- mode: python; coding: utf-8 -*-
 """
-Usage: httperr [OPTIONS] [CODE [CODE …]]
+Usage: httperr [OPTIONS] [STATUS [STATUS …]]
 
 positional arguments:
-  CODE             HTTP status code
+  STATUS           HTTP status code or pattern
 
 optional arguments:
   -h, --help       show this help message and exit
@@ -28,6 +28,7 @@ from __future__ import print_function, unicode_literals
 import sys
 import os
 import argparse
+import re
 
 if sys.version_info < (3, 0):
     from httplib import responses
@@ -35,8 +36,8 @@ else:
     from http.client import responses
 
 __author__ = 'Klaus Alexander Seistrup <klaus@seistrup.dk>'
-__revision__ = '2015-08-08'
-__version__ = '0.1.2 (%s)' % __revision__
+__revision__ = '2015-08-15'
+__version__ = '0.2.0 (%s)' % __revision__
 __copyright__ = """\
 httperr %s
 Copyright © 2012−15 Klaus Alexander Seistrup <klaus@seistrup.dk>
@@ -46,7 +47,6 @@ warranty; not even for merchantability or fitness for a particular purpose.
 
 Fork me on Github: https://github.com/kseistrup/httperr
 """ % (__version__,)
-
 
 RESPONSES = dict([(str(code), desc) for (code, desc) in responses.items()])
 
@@ -75,25 +75,45 @@ def main(progname='httperr'):
     parser.add_argument('-c', '--copyright', action='version',
                         version=__copyright__,
                         help='show copying policy and exit')
-    parser.add_argument('CODE', nargs='*', help='HTTP status code')
+    parser.add_argument('STATUS', nargs='*', help='HTTP status code/pattern')
 
     args = parser.parse_args()
 
-    codes = args.CODE or stdin.read().split()
+    statuses = args.STATUS or stdin.read().split()
 
     return_code = 0
 
-    for code in codes:
-        if not code.isdigit() or len(code) != 3:
-            print('{0}\tInvalid status code'.format(code), file=stderr)
-            return_code = 1
-            continue
-        desc = RESPONSES.get(code, None)
-        if desc is None:
-            print('{0}\tUnrecognized status code'.format(code), file=stderr)
-            return_code = 1
-            continue
-        print('{0}\t{1}'.format(code, reformat(desc)))
+    cache = {}
+
+    def error(message, blame):
+        """Print an error message to stderr"""
+        print('{1}\t{0}'.format(message, blame), file=stderr)
+
+    for status in statuses:
+        if status.isdigit() and len(status) == 3:
+            desc = RESPONSES.get(status, None)
+            if desc is None:
+                error('Unrecognized status code', status)
+                return_code = 1
+                continue
+            if status not in cache:
+                cache[status] = desc
+        else:
+            pattern = re.compile(status, re.IGNORECASE)
+            found = False
+            for (code, desc) in RESPONSES.items():
+                if pattern.search(code) is None:
+                    if pattern.search(desc) is None:
+                        continue
+                found = True
+                if code not in cache:
+                    cache[code] = desc
+            if not found:
+                error('Unrecognized pattern', status)
+                return_code = 1
+
+    for code in sorted(cache.keys()):
+        print('{0}\t{1}'.format(code, reformat(cache[code])))
 
     return return_code
 

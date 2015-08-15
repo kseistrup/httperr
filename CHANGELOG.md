@@ -1,5 +1,9 @@
 # Change log
 
+## [0.2.0] — 2015-08-15
+### Changed
+- Now implements pattern matching (closes #1)
+
 ## [0.1.2] — 2015-08-08
 ### Changed
 - First public release
@@ -14,4 +18,4 @@
 ### Changed
 - First draft for Python 2
 
-:smile:
+Don't worry, be happy :smile:
