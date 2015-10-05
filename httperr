@@ -3,10 +3,10 @@
 """
 Usage: httperr [OPTIONS] [STATUS [STATUS …]]
 
-positional arguments:
+Positional arguments:
   STATUS           HTTP status code or pattern
 
-optional arguments:
+Optional arguments:
   -h, --help       show this help message and exit
   -v, --version    show version information and exit
   -c, --copyright  show copying policy and exit
