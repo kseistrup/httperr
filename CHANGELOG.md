@@ -1,5 +1,9 @@
 # Change log
 
+## [0.2.1] — 2015-10-05
+### Fixed
+- Now supports Python 3.5's HTTPStatus() class
+
 ## [0.2.0] — 2015-08-15
 ### Changed
 - Now implements pattern matching (closes #1)
