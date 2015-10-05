@@ -36,14 +36,14 @@ else:
     from http.client import responses
 
 try:
-    from locale import (setlocale, LC_ALL, Error)
+    from locale import (Error, setlocale, LC_ALL)
     _ = setlocale(LC_ALL, '')
 except (ImportError, NameError, Error):
     pass
 
 __author__ = 'Klaus Alexander Seistrup <klaus@seistrup.dk>'
-__revision__ = '2015-08-15'
-__version__ = '0.2.0 (%s)' % __revision__
+__revision__ = '2015-10-05'
+__version__ = '0.2.1 (%s)' % __revision__
 __copyright__ = """\
 httperr %s
 Copyright © 2012−15 Klaus Alexander Seistrup <klaus@seistrup.dk>
@@ -54,7 +54,9 @@ warranty; not even for merchantability or fitness for a particular purpose.
 Fork me on Github: https://github.com/kseistrup/httperr
 """ % (__version__,)
 
-RESPONSES = dict([(str(code), desc) for (code, desc) in responses.items()])
+RESPONSES = dict(
+    [(str(int(code)), desc) for (code, desc) in responses.items()]
+)
 
 
 def reformat(old):
