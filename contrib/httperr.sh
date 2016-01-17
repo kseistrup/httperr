@@ -16,8 +16,8 @@ ME="${0##*/}"
 ##############################################################################
 
 __author__="Klaus Alexander Seistrup <klaus@seistrup.dk>"
-__revision__="2015-08-16"
-__version__="0.0.1 (${__revision__})"
+__revision__="2016-01-17"
+__version__="0.1.0 (${__revision__})"
 __copyright__="\
 httperr ${__version__}
 Copyright © 2015 Klaus Alexander Seistrup <klaus@seistrup.dk>
@@ -77,6 +77,7 @@ RESPONSES="\
 428	Precondition required
 429	Too many requests
 431	Request header fields too large
+451	Unavailable for leagl reasons
 500	Internal server error
 501	Not implemented
 502	Bad gateway

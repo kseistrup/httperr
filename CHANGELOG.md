@@ -1,5 +1,9 @@
 # Change log
 
+## [0.3.0] — 2016-01-17
+### Added
+- Now recognizes “451 Unavailable for legal reasons”
+
 ## [0.2.1] — 2015-10-05
 ### Fixed
 - Now supports Python 3.5's HTTPStatus() class
