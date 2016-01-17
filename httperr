@@ -1,15 +1,16 @@
 #!/usr/bin/python
 # -*- mode: python; coding: utf-8 -*-
 """
-Usage: httperr [OPTIONS] [STATUS [STATUS …]]
+Usage: httperr [-h] [-v] [-c] [-l] [STATUS [STATUS …]]
 
 Positional arguments:
-  STATUS           HTTP status code or pattern
+  STATUS           HTTP status code/pattern
 
 Optional arguments:
   -h, --help       show this help message and exit
   -v, --version    show version information and exit
   -c, --copyright  show copying policy and exit
+  -l, --list       list all recognized status codes
 """
 ##############################################################################
 # This program is free software; you can redistribute it and/or modify it    #
@@ -43,7 +44,7 @@ except (ImportError, NameError, Error):
 
 __author__ = 'Klaus Alexander Seistrup <klaus@seistrup.dk>'
 __revision__ = '2016-01-17'
-__version__ = '0.3.0 (%s)' % __revision__
+__version__ = '0.4.0 (%s)' % __revision__
 __copyright__ = """\
 httperr %s
 Copyright © 2012−16 Klaus Alexander Seistrup <klaus@seistrup.dk>
@@ -86,29 +87,39 @@ def main(progname='httperr'):
     parser.add_argument('-c', '--copyright', action='version',
                         version=__copyright__,
                         help='show copying policy and exit')
+    parser.add_argument('-l', '--list', action='store_true',
+                        help='list all recognized status codes')
     parser.add_argument('STATUS', nargs='*', help='HTTP status code/pattern')
 
     args = parser.parse_args()
 
-    statuses = args.STATUS or stdin.read().split()
+    if args.list:
+        statuses = set([r'^\d{3}'])
+        cache = RESPONSES.copy()
+    else:
+        statuses = set(args.STATUS or stdin.read().split())
+        cache = {}
 
     return_code = 0
 
-    cache = {}
 
     def error(message, blame):
         """Print an error message to stderr"""
         print('{1}\t{0}'.format(message, blame), file=stderr)
 
+    collapse = lambda s: ' '.join(s.split())
+
     for status in statuses:
+        status = collapse(status)
+        if not status:
+            continue
         if status.isdigit() and len(status) == 3:
             desc = RESPONSES.get(status, None)
             if desc is None:
                 error('Unrecognized status code', status)
                 return_code = 1
                 continue
-            if status not in cache:
-                cache[status] = desc
+            cache[status] = desc
         else:
             pattern = re.compile(status, re.IGNORECASE)
             found = False
@@ -116,9 +127,8 @@ def main(progname='httperr'):
                 if pattern.search(code) is None:
                     if pattern.search(desc) is None:
                         continue
+                cache[code] = desc
                 found = True
-                if code not in cache:
-                    cache[code] = desc
             if not found:
                 error('Unrecognized pattern', status)
                 return_code = 1

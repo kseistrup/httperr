@@ -1,5 +1,9 @@
 # Change log
 
+## [0.4.0] — 2016-01-17
+### Added
+- Optionally list all recognized status codes
+
 ## [0.3.0] — 2016-01-17
 ### Added
 - Now recognizes “451 Unavailable for legal reasons”
