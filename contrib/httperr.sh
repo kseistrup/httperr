@@ -17,10 +17,10 @@ ME="${0##*/}"
 
 __author__="Klaus Alexander Seistrup <klaus@seistrup.dk>"
 __revision__="2016-01-17"
-__version__="0.1.0 (${__revision__})"
+__version__="0.1.1 (${__revision__})"
 __copyright__="\
 httperr ${__version__}
-Copyright © 2015 Klaus Alexander Seistrup <klaus@seistrup.dk>
+Copyright © 2015-16 Klaus Alexander Seistrup <klaus@seistrup.dk>
 
 This is free software; see the source for copying conditions.  There is no
 warranty; not even for merchantability or fitness for a particular purpose.
