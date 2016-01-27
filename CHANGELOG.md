@@ -1,5 +1,10 @@
 # Change log
 
+## [0.4.1] — 2016-01-27
+### Added
+- 499 Client closed request
+- 599 Network connect timeout error
+
 ## [0.4.0] — 2016-01-17
 ### Added
 - Optionally list all recognized status codes

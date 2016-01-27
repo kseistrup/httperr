@@ -43,8 +43,8 @@ except (ImportError, NameError, Error):
     pass
 
 __author__ = 'Klaus Alexander Seistrup <klaus@seistrup.dk>'
-__revision__ = '2016-01-17'
-__version__ = '0.4.0 (%s)' % __revision__
+__revision__ = '2016-01-27'
+__version__ = '0.4.1 (%s)' % __revision__
 __copyright__ = """\
 httperr %s
 Copyright © 2012−16 Klaus Alexander Seistrup <klaus@seistrup.dk>
@@ -61,6 +61,15 @@ RESPONSES = dict(
 # http://www.451unavailable.org/
 if '451' not in RESPONSES:
     RESPONSES['451'] = 'Unavailable for legal reasons'
+# A non-standard status code introduced by nginx for the case when
+# a client closes the connection while nginx is processing the request.
+if '499' not in RESPONSES:
+    RESPONSES['499'] = 'Client closed request'
+# This status code is not specified in any RFCs, but is used by some
+# HTTP proxies to signal a network connect timeout behind the proxy to
+# a client in front of the proxy.
+if '599' not in RESPONSES:
+    RESPONSES['599'] = 'Network connect timeout error'
 
 
 def reformat(old):
