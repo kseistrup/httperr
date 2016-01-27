@@ -1,6 +1,7 @@
 ## Future plans
 
 * Add colours if standard output is a TTY
+* Add https://en.wikipedia.org/wiki/List_of_HTTP_status_codes#Unofficial_codes
 
 ### Suggestions
 
