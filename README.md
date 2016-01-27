@@ -56,4 +56,17 @@ to change the shebang line to e.g.
 #!/usr/bin/env python
 ```
 
+## See also
+### SSL
+* https://echo.getpostman.com/status/418
+* https://http.cat/
+* https://httpbin.org/status/418
+* https://httpstatuses.com/418
+### Vanilla HTTP
+* http://codes.io/
+* http://get.reststat.us/
+* http://httpstat.us/
+### Miscellaneous
+* https://news.ycombinator.com/item?id=10976194
+
 Don't worry, be happy :smile:
