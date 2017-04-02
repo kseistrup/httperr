@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 # -*- mode: python; coding: utf-8 -*-
 """
 Usage: httperr [OPTIONS] [STATUS [STATUS …]]
@@ -43,11 +43,11 @@ except (ImportError, NameError, Error):
     pass
 
 __author__ = 'Klaus Alexander Seistrup <klaus@seistrup.dk>'
-__revision__ = '2016-01-27'
+__revision__ = '2017-04-02'
 __version__ = '0.4.1 (%s)' % __revision__
 __copyright__ = """\
 httperr %s
-Copyright © 2012−16 Klaus Alexander Seistrup <klaus@seistrup.dk>
+Copyright © 2012−17 Klaus Alexander Seistrup <klaus@seistrup.dk>
 
 This is free software; see the source for copying conditions.  There is no
 warranty; not even for merchantability or fitness for a particular purpose.
@@ -111,12 +111,13 @@ def main(progname='httperr'):
 
     return_code = 0
 
-
     def error(message, blame):
         """Print an error message to stderr"""
         print('{1}\t{0}'.format(message, blame), file=stderr)
 
-    collapse = lambda s: ' '.join(s.split())
+    def collapse(text):
+        """Convert all occurrences of 1+ whitespace to 1 SPACE"""
+        return ' '.join(text.split())
 
     for status in statuses:
         status = collapse(status)
@@ -146,6 +147,7 @@ def main(progname='httperr'):
         print('{0}\t{1}'.format(code, reformat(cache[code])))
 
     return return_code
+
 
 if __name__ == '__main__':
     sys.exit(main(os.path.basename(sys.argv[0])))
