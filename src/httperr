@@ -31,15 +31,14 @@ import os
 import argparse
 import re
 
-if sys.version_info < (3, 0):
-    from httplib import responses
-else:
-    from http.client import responses
-
 try:
+    if sys.version_info < (3, 0):
+        from httplib import responses
+    else:
+        from http.client import responses
     from locale import (Error, setlocale, LC_ALL)
     _ = setlocale(LC_ALL, '')
-except (ImportError, NameError, Error):
+except (ImportError, ModuleNotFoundError, NameError, Error):
     pass
 
 __author__ = 'Klaus Alexander Seistrup <klaus@seistrup.dk>'
