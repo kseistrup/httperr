@@ -42,11 +42,11 @@ except (ImportError, ModuleNotFoundError, NameError, Error):
     pass
 
 __author__ = 'Klaus Alexander Seistrup <klaus@seistrup.dk>'
-__revision__ = '2017-04-02'
-__version__ = '0.4.1 (%s)' % __revision__
+__revision__ = '2018-07-30'
+__version__ = '0.4.2 (%s)' % __revision__
 __copyright__ = """\
 httperr %s
-Copyright © 2012−17 Klaus Alexander Seistrup <klaus@seistrup.dk>
+Copyright © 2012−18 Klaus Alexander Seistrup <klaus@seistrup.dk>
 
 This is free software; see the source for copying conditions.  There is no
 warranty; not even for merchantability or fitness for a particular purpose.
@@ -57,6 +57,11 @@ Fork me on Github: https://github.com/kseistrup/httperr
 RESPONSES = dict(
     [(str(int(code)), desc) for (code, desc) in responses.items()]
 )
+# https://developer.twitter.com/en/docs/basics/response-codes
+if '420' not in RESPONSES:
+    # It is hard to see how this is different from
+    # 429 Too many requests
+    RESPONSES['420'] = 'Enhance your calm'
 # http://www.451unavailable.org/
 if '451' not in RESPONSES:
     RESPONSES['451'] = 'Unavailable for legal reasons'
