@@ -31,6 +31,14 @@ import os
 import argparse
 import re
 
+# Python 2.7+ needed for dictionary comprehension
+if sys.version_info < (2, 7):
+    print(
+        'Python 2.7+ needed, found Python {}.{}'.format(*sys.version_info[:2]),
+        file=sys.stderr
+    )
+    sys.exit(1)
+
 try:
     if sys.version_info < (3, 0):
         from httplib import responses
@@ -43,21 +51,21 @@ except (ImportError, ModuleNotFoundError, NameError, Error):
 
 __author__ = 'Klaus Alexander Seistrup <klaus@seistrup.dk>'
 __revision__ = '2018-07-30'
-__version__ = '0.4.2.1 (%s)' % __revision__
+__version__ = '0.4.3 ({})'.format(__revision__)
 __copyright__ = """\
-httperr %s
+httperr {}
 Copyright © 2012−18 Klaus Alexander Seistrup <klaus@seistrup.dk>
 
 This is free software; see the source for copying conditions. There is no
 warranty; not even for merchantability or fitness for a particular purpose.
 
 Fork me on Github: https://github.com/kseistrup/httperr
-   or Scuttlebutt: ssb://%%YEIs8rL2yaJKd/ob68o9dait3yj+m6tw8tAyOs3hgus=.sha256
-""" % (__version__,)
+   or Scuttlebutt: ssb://%YEIs8rL2yaJKd/ob68o9dait3yj+m6tw8tAyOs3hgus=.sha256
+""".format(__version__)
 
-RESPONSES = dict(
-    [(str(int(code)), desc) for (code, desc) in responses.items()]
-)
+RESPONSES = {
+    str(int(code)): desc for (code, desc) in responses.items()
+}
 # https://developer.twitter.com/en/docs/basics/response-codes
 if '420' not in RESPONSES:
     # It is hard to see how this is different from
