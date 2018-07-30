@@ -20,7 +20,7 @@ Optional arguments:
 #                                                                            #
 # This program is distributed in the hope that it will be useful, but with-  #
 # out any warranty; without even the implied warranty of merchantability or  #
-# fitness for a particular purpose.  See the GNU General Public License for  #
+# fitness for a particular purpose. See the GNU General Public License for   #
 # more details.  <http://gplv3.fsf.org/>                                     #
 ##############################################################################
 
@@ -43,15 +43,16 @@ except (ImportError, ModuleNotFoundError, NameError, Error):
 
 __author__ = 'Klaus Alexander Seistrup <klaus@seistrup.dk>'
 __revision__ = '2018-07-30'
-__version__ = '0.4.2 (%s)' % __revision__
+__version__ = '0.4.2.1 (%s)' % __revision__
 __copyright__ = """\
 httperr %s
 Copyright © 2012−18 Klaus Alexander Seistrup <klaus@seistrup.dk>
 
-This is free software; see the source for copying conditions.  There is no
+This is free software; see the source for copying conditions. There is no
 warranty; not even for merchantability or fitness for a particular purpose.
 
 Fork me on Github: https://github.com/kseistrup/httperr
+   or Scuttlebutt: ssb://%%YEIs8rL2yaJKd/ob68o9dait3yj+m6tw8tAyOs3hgus=.sha256
 """ % (__version__,)
 
 RESPONSES = dict(
