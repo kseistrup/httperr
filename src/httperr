@@ -50,11 +50,11 @@ except (ImportError, ModuleNotFoundError, NameError, Error):
     pass
 
 __author__ = 'Klaus Alexander Seistrup <klaus@seistrup.dk>'
-__revision__ = '2018-07-30'
+__revision__ = '2020-10-06'
 __version__ = '0.4.3 ({})'.format(__revision__)
 __copyright__ = """\
 httperr {}
-Copyright © 2012−18 Klaus Alexander Seistrup <klaus@seistrup.dk>
+Copyright © 2012−20 Klaus Alexander Seistrup <klaus@seistrup.dk>
 
 This is free software; see the source for copying conditions. There is no
 warranty; not even for merchantability or fitness for a particular purpose.
@@ -66,11 +66,20 @@ Fork me on Github: https://github.com/kseistrup/httperr
 RESPONSES = {
     str(int(code)): desc for (code, desc) in responses.items()
 }
+# https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/103
+if '103' not in RESPONSES:
+    RESPONSES['103'] = 'Early hints'
+# https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/418
+if '418' not in RESPONSES:
+    RESPONSES['418'] = "I'm a teapot"
 # https://developer.twitter.com/en/docs/basics/response-codes
 if '420' not in RESPONSES:
     # It is hard to see how this is different from
     # 429 Too many requests
     RESPONSES['420'] = 'Enhance your calm'
+# https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/425
+if '425' not in RESPONSES:
+    RESPONSES['425'] = 'Too early'
 # http://www.451unavailable.org/
 if '451' not in RESPONSES:
     RESPONSES['451'] = 'Unavailable for legal reasons'
